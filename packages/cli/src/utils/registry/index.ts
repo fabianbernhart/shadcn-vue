@@ -9,13 +9,13 @@ import {
   stylesSchema,
 } from '@/src/utils/registry/schema'
 import consola from 'consola'
-import { HttpsProxyAgent } from 'https-proxy-agent'
 import { ofetch } from 'ofetch'
 import path from 'pathe'
+import { ProxyAgent } from 'undici'
 
 const baseUrl = process.env.COMPONENTS_REGISTRY_URL ?? 'https://www.shadcn-vue.com'
 const agent = process.env.https_proxy
-  ? new HttpsProxyAgent(process.env.https_proxy)
+  ? new ProxyAgent(process.env.https_proxy)
   : undefined
 
 export async function getRegistryIndex() {
@@ -144,8 +144,7 @@ async function fetchRegistry(paths: string[]) {
     const results = await Promise.all(
       paths.map(async (path) => {
         const response = await ofetch(`${baseUrl}/registry/${path}`, {
-          // @ts-expect-error agent type
-          agent,
+          dispatcher: agent,
         })
 
         return response

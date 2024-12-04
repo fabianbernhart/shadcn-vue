@@ -42,7 +42,7 @@ const itemsToDisplay = 3
 const firstLabel = computed(() => items.value[0]?.label)
 
 const allButLastTwoItems = computed(() => items.value.slice(1, -2))
-const remainingItems = computed(() => items.value.slice(-itemsToDisplay + 1))
+const remainingItems = computed(() => items.value.slice(-Math.min(itemsToDisplay, items.value.length) + 1))
 </script>
 
 <template>

@@ -403,6 +403,7 @@ By passing the `form` as props, you can control and use the method provided by `
 
 ```vue
 <script setup lang="ts">
+import { AutoForm } from '@/components/ui/auto-form'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
 import * as z from 'zod'
